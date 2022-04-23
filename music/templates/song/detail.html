@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ song.name }}</title>
+    <link rel="shortcut icon" type="image/ico" href="{% static 'favicon.ico' %}"/>
+    <style>
+        body{
+            background: url({% static 'background.jpg' %});
+            color: black;
+            background-size: cover;
+        }
+
+        .forms__container {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            justify-content: space-around;
+        }
+
+        .forms__form_block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            border: 1px solid black;
+            padding: 10px;
+            background: white;
+        }
+
+        .forms__form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .forms__form * {
+            margin-bottom: 10px;
+        }
+
+        .forms__form select {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="forms__container">
+    <div class="forms__form_block">
+        <h3>{{ song.name }}</h3>
+        <form class="forms__form" action="/song/{{ song.id }}/" method="post">
+            {{ song_form }}
+            <input type="submit" name="song_send" value="Сохранить">
+            <span>{% if answer %} {{ answer }} {% endif %}</span>
+        </form>
+    </div>
+</div>
+</body>
+</html>

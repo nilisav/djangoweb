@@ -1,0 +1,96 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Музыка</title>
+    <link rel="shortcut icon" type="image/ico" href="{% static 'favicon.ico' %}"/>
+    <style>
+        body{
+            background: url({% static 'background.jpg' %});
+            background-size: cover;
+            color: black;
+        }
+
+        a {
+            color: blue;
+        }
+
+        .forms__container {
+            display: flex;
+            flex-direction: row;
+            align-content: center;
+            justify-content: space-around;
+        }
+
+        .forms__form_block {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
+            border: 1px solid black;
+            padding: 10px;
+            background: white;
+        }
+
+        .forms__form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .forms__form * {
+            margin-bottom: 10px;
+        }
+
+        .forms__form select {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="forms__container">
+    <div class="forms__form_block">
+        <h3>Список песен</h3>
+        {% if song_list %}
+            <ul>
+            {% for song in song_list %}
+                <li><a href="/song/{{ song.id }}/">{{ song.name }}</a></li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>Список песен пуст.</p>
+        {% endif %}
+    </div>
+
+    <div class="forms__form_block">
+        <h3>Жанр</h3>
+        <form class="forms__form" action="/song/" method="post">
+            {{ genre_form }}
+            <input type="submit" name="genre_send" value="Сохранить">
+        </form>
+        <span>{% if answer.genre %} {{ answer.genre }} {% endif %}</span>
+    </div>
+
+    <div class="forms__form_block">
+        <h3>Автор</h3>
+        <form class="forms__form" action="/song/" method="post">
+            {{ author_form }}
+            <input type="submit" name="author_send" value="Сохранить">
+        </form>
+        <span>{% if answer.author %} {{ answer.author }} {% endif %}</span>
+    </div>
+
+    <div class="forms__form_block">
+        <h3>Песня</h3>
+        <form class="forms__form" action="/song/" method="post">
+            {{ song_form }}
+            <input type="submit" name="song_send" value="Сохранить">
+        </form>
+        <span>{% if answer.song %} {{ answer.song }} {% endif %}</span>
+    </div>
+</div>
+</body>
+</html>
